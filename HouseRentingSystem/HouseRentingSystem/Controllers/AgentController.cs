@@ -30,7 +30,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Bevome(BecomeAgentModel model)
+        public async Task<IActionResult> Become(BecomeAgentModel model)
         {
             var userId = User.Id();
 
