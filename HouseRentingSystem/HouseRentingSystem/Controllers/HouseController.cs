@@ -1,12 +1,20 @@
 ﻿namespace HouseRentingSystem.Controllers
 {
-    using HouseRentingSystem.Core.Models.House;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using HouseRentingSystem.Core.Contracts;
+    using HouseRentingSystem.Core.Models.House;
 
     [Authorize]
     public class HouseController : Controller
     {
+        private readonly IHouseService houseService;
+
+        public HouseController(IHouseService _houseService)
+        {
+            this.houseService = _houseService;
+        }
+
         [AllowAnonymous]
         public async Task<IActionResult> All()
         {

@@ -5,5 +5,7 @@
     public interface IHouseService
     {
         Task<IEnumerable<HouseHomeModel>> GetLastThreeHouses();
+
+        Task<IEnumerable<HouseHomeModel>> AllCategories();
     }
 }
