@@ -36,6 +36,10 @@
                 .AnyAsync(a => a.UserId == userId);
         }
 
+        public async Task<int> GetAgentId(string userId)
+            => (await this.repo.AllReadonly<Agent>()
+                .FirstOrDefaultAsync(a => a.UserId == userId))?.Id ?? 0;
+
         public async Task<bool> UserHasRents(string userId)
         {
             return await repo.All<House>()

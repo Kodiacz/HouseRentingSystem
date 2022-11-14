@@ -4,14 +4,20 @@
     using Microsoft.AspNetCore.Mvc;
     using HouseRentingSystem.Core.Contracts;
     using HouseRentingSystem.Core.Models.House;
+    using HouseRentingSystem.Extensions;
 
     [Authorize]
     public class HouseController : Controller
     {
         private readonly IHouseService houseService;
+        private readonly IAgentService agentService;
 
-        public HouseController(IHouseService _houseService)
+
+        public HouseController(
+            IAgentService _agentService,
+            IHouseService _houseService)
         {
+            this.agentService = _agentService;
             this.houseService = _houseService;
         }
 
@@ -39,12 +45,44 @@
         }
 
         [HttpGet]
-        public IActionResult Add() => View();
+        public async Task<IActionResult> Add()
+        {
+            if ((await agentService.ExistsById(User.Id())) == false)
+            {
+                return RedirectToAction(nameof(AgentController.Become), "Agent");
+            }
+
+            var model = new HouseModel()
+            {
+                Categories = await this.houseService.AllCategories(),
+            };
+
+            return View(model);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Add(HouseModel model)
         {
-            int id = 1;
+            if ((await agentService.ExistsById(User.Id())) == false)
+            {
+                return RedirectToAction(nameof(AgentController.Become), "Agent");
+            }
+
+            if ((await this.houseService.CategoryExists(model.CategoryId)) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await this.houseService.AllCategories();
+
+                return View(model);
+            }
+
+            int agentId = await this.agentService.GetAgentId(User.Id());
+
+            int id = await this.houseService.Create(model, agentId);
 
             return RedirectToAction(nameof(Details), new { id });
         }

@@ -6,6 +6,10 @@
     {
         Task<IEnumerable<HouseHomeModel>> GetLastThreeHouses();
 
-        Task<IEnumerable<HouseHomeModel>> AllCategories();
+        Task<IEnumerable<HouseCategoryModel>> AllCategories();
+
+        Task<bool> CategoryExists(int categoryId);
+
+        Task<int> Create(HouseModel model, int agentId);
     }
 }
