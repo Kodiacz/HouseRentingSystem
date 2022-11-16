@@ -5,6 +5,7 @@
     using HouseRentingSystem.Core.Contracts;
     using HouseRentingSystem.Core.Models.House;
     using HouseRentingSystem.Extensions;
+    using HouseRentingSystem.Core.Models;
 
     [Authorize]
     public class HouseController : Controller
@@ -22,8 +23,21 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllHousesQueryModel query)
         {
+            var result = await houseService.All(
+                query.Category,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllHousesQueryModel.HousesPerPage);
+
+            query.TotalHousesCount = result.TotalHousesCount;
+            query.Categories = await houseService.AllCategoriesNames();
+            query.Houses = result.Houses;
+
+            return View(query);
+
             var model = new HousesQueryModel();
 
             return View(model);
