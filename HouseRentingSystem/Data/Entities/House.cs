@@ -1,6 +1,5 @@
 ﻿namespace HouseRentingSystem.Data.Entities
 {
-    using Humanizer;
     using System.ComponentModel.DataAnnotations;
 
     public class House

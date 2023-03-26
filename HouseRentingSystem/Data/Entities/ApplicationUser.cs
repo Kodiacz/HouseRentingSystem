@@ -1,9 +1,8 @@
 ﻿namespace HouseRentingSystem.Infrastructure.Data
 {
     using Microsoft.AspNetCore.Identity;
-    using System.Runtime.CompilerServices;
 
-    public class ApplicationUser : IdentityUser<string>
+    public class ApplicationUser : IdentityUser
     {
         public ApplicationUser()
         : base() {

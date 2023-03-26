@@ -1,11 +1,8 @@
 ﻿namespace HouseRentingSystem.Data.Configuration
 {
     using HouseRentingSystem.Data.Entities;
-    using Microsoft.Data.SqlClient;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.Extensions.Logging;
-    using System.Net;
 
     public class HouseConfiguration : IEntityTypeConfiguration<House>
     {
