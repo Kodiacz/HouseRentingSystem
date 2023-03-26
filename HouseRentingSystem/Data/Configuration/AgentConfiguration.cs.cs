@@ -1,4 +1,4 @@
-﻿namespace HouseRentingSystem.Infrastructure.Data.Configuration
+﻿namespace HouseRentingSystem.Data.Entities.Configuration
 {
     using HouseRentingSystem.Data.Entities;
     using Microsoft.EntityFrameworkCore;

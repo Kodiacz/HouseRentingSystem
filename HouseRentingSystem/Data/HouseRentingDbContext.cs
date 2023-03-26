@@ -1,21 +1,16 @@
-﻿using HouseRentingSystem.Data.Configuration;
-namespace HouseRentingSystem.Data
+﻿namespace HouseRentingSystem.Data
 {
+    using HouseRentingSystem.Data.Configuration;
     using HouseRentingSystem.Data.Entities;
-    using HouseRentingSystem.Infrastructure.Data;
-    using HouseRentingSystem.Infrastructure.Data.Configuration;
+    using HouseRentingSystem.Data.Entities;
+    using HouseRentingSystem.Data.Entities.Configuration;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.AspNetCore.SignalR;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata;
 
     public class HouseRentingDbContext : IdentityDbContext<ApplicationUser>
     {
         public HouseRentingDbContext(DbContextOptions<HouseRentingDbContext> options)
-            : base(options)
-        {
-
-        }
+            : base(options) { }
 
         public DbSet<House> Houses { get; set; } = null!;
 

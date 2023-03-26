@@ -1,6 +1,6 @@
 ﻿namespace HouseRentingSystem.Data.Entities
 {
-    using HouseRentingSystem.Infrastructure.Data;
+    using HouseRentingSystem.Data.Entities;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 

@@ -1,6 +1,6 @@
 ﻿namespace HouseRentingSystem.Data.Configuration
 {
-    using HouseRentingSystem.Infrastructure.Data;
+    using HouseRentingSystem.Data.Entities;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
