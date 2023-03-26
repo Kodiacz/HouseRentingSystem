@@ -1,7 +1,5 @@
 ﻿namespace HouseRentingSystem.Data.Entities
 {
-    using System.ComponentModel.DataAnnotations;
-
     public class Category
     {
         public Category()

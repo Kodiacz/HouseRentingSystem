@@ -1,10 +1,5 @@
 ﻿namespace HouseRentingSystem.Data.Configuration
 {
-    using HouseRentingSystem.Data.Entities;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)

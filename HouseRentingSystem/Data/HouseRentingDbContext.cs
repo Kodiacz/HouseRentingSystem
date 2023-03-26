@@ -1,12 +1,5 @@
 ﻿namespace HouseRentingSystem.Data
 {
-    using HouseRentingSystem.Data.Configuration;
-    using HouseRentingSystem.Data.Entities;
-    using HouseRentingSystem.Data.Entities;
-    using HouseRentingSystem.Data.Entities.Configuration;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
-
     public class HouseRentingDbContext : IdentityDbContext<ApplicationUser>
     {
         public HouseRentingDbContext(DbContextOptions<HouseRentingDbContext> options)

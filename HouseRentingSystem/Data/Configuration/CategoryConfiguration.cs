@@ -1,9 +1,5 @@
 ﻿namespace HouseRentingSystem.Data.Configuration
 {
-    using HouseRentingSystem.Data.Entities;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)

@@ -1,9 +1,5 @@
 ﻿namespace HouseRentingSystem.Data.Entities.Configuration
 {
-    using HouseRentingSystem.Data.Entities;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
     internal class AgentConfiguration : IEntityTypeConfiguration<Agent>
     {
         public void Configure(EntityTypeBuilder<Agent> builder)
