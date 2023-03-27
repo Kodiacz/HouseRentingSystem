@@ -6,7 +6,7 @@
         public int Id { get; set; }
 
         [Required]
-        [StringLength(15, MinimumLength = 7)]
+        [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]

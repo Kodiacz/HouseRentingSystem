@@ -11,7 +11,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(CategoryNameMaxLength)]
         public string Name { get; set; } = null!;
 
         public IEnumerable<House> Houses { get; set; }
