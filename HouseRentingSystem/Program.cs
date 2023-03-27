@@ -18,6 +18,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(opt =>
     .AddEntityFrameworkStores<HouseRentingDbContext>();
 
 builder.Services.AddTransient<IHouseService, HouseService>();
+builder.Services.AddTransient<IAgentService, AgentService>();
 
 var app = builder.Build();
 
