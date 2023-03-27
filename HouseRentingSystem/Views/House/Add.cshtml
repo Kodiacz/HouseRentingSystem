@@ -1,8 +1,10 @@
-﻿@model AllHousesQueryModel
+﻿@model HouseFormModel
 
 @{
     ViewBag.Title = "Add Houses";
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h2 class="text-center" >@ViewBag.Title</h2>
 <hr />
+
+<partial name="_HouseFormPartial" model="@Model" />
