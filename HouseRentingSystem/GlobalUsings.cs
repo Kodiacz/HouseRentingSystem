@@ -13,6 +13,7 @@ global using Microsoft.EntityFrameworkCore.Infrastructure;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 global using HouseRentingSystem.Data;
+global using HouseRentingSystem.Enums;
 global using HouseRentingSystem.Models;
 global using HouseRentingSystem.Services;
 global using HouseRentingSystem.Interfaces;
@@ -21,3 +22,9 @@ global using HouseRentingSystem.Models.House;
 global using HouseRentingSystem.Data.Entities;
 global using HouseRentingSystem.Data.Configuration;
 global using HouseRentingSystem.Data.Entities.Configuration;
+global using static HouseRentingSystem.Constants.MessageConstants;
+global using static HouseRentingSystem.Data.Entities.DataConstants.AgentConstants;
+global using static HouseRentingSystem.Data.Entities.DataConstants.ApplicationUserConstants;
+global using static HouseRentingSystem.Data.Entities.DataConstants.CategoryConstants;
+global using static HouseRentingSystem.Data.Entities.DataConstants.HouseConstants;
+
