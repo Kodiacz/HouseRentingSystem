@@ -1,19 +1,25 @@
-﻿using HouseRentingSystem.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
-namespace HouseRentingSystem.Controllers
+﻿namespace HouseRentingSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index() 
-            => View(); 
+        private readonly IHouseService houseService;
+
+        public HomeController(IHouseService houseService)
+        {
+            this.houseService = houseService;
+        }
+
+        public IActionResult Index()
+        {
+            var houses = this.houseService.LastThreeHouses();
+            return View(houses);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error() 
-            => View(new ErrorViewModel 
+        public IActionResult Error()
+            => View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
 
     }
