@@ -1,9 +1,3 @@
-using HouseRentingSystem.Data;
-using HouseRentingSystem.Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -22,6 +16,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(opt =>
     opt.Password.RequireNonAlphanumeric = false;
 })
     .AddEntityFrameworkStores<HouseRentingDbContext>();
+
+builder.Services.AddTransient<IHouseService, HouseService>();
 
 var app = builder.Build();
 
