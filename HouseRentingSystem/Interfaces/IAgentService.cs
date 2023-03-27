@@ -1,6 +1,14 @@
 ﻿namespace HouseRentingSystem.Interfaces
 {
-    public class IAgentService
+    public interface IAgentService
     {
+        bool ExistById(string userId);
+
+        bool UserWithPhoneNumberExists(string phoneNumber);
+
+        bool UserHasRents(string userId);
+
+        void Create(string userId, string phoneNumber);
+        int GetAgentId(string? userId);
     }
 }
