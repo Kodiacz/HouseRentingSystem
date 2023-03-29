@@ -9,10 +9,10 @@
 
         public const int HousesPerPage = 3;
 
-        public string Category { get; init; }
+        public string? Category { get; init; }
 
         [Display(Name = "Search by text")]
-        public string SearchTerm { get; init; }
+        public string? SearchTerm { get; init; }
 
         public HouseSorting Sorting { get; init; }
 

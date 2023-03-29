@@ -18,5 +18,28 @@
             int housesPerPage = 1);
 
         IEnumerable<string> AllCategoriesNames();
+
+        IEnumerable<HouseServiceModel> AllHousesByAgentId(int agentId);
+
+        IEnumerable<HouseServiceModel> AllHousesByUserId(string userId);
+
+        bool Exists(int id);
+
+        HouseDetailsServiceModel HouseDetailsById(int id);
+
+        void Edit(int houseId, string title, string address,
+            string description, string imageUrl, decimal price, int categoryId);
+
+        bool HasAgentWithId(int houseId, string currentUserId);
+
+        int GetHouseCategoryId(int houseId);
+
+        bool IsRented(int id);
+
+        bool IsRentedByUserWithId(int houseId, string userId);
+
+        void Rent(int houseId, string userId);
+
+        void Leave(int houseId);
     }
 }
