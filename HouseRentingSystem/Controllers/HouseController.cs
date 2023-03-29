@@ -37,13 +37,39 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public IActionResult Mine()
         {
-            return View(new AllHousesQueryModel());
+            IEnumerable<HouseServiceModel> myHouses = null;
+
+            var userId = this.User.Id();
+
+            if (this.agentService.ExistById(userId!))
+            {
+                var currentAgentId = this.agentService.GetAgentId(userId);
+
+                myHouses = this.houseService.AllHousesByAgentId(currentAgentId);
+            }
+            else
+            {
+                myHouses = this.houseService.AllHousesByUserId(userId!);
+            }
+
+            return View(myHouses);
         }
 
         [HttpGet]
         public IActionResult Details(int id)
         {
-            return View(new HouseDetailsViewModel());
+            if (!this.houseService.Exists(id))
+            {
+                //ViewData[ErrorMessage] = "This house dose not exist in the system";
+
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return BadRequest();
+            }
+
+            var houseModel = this.houseService.HouseDetailsById(id);
+
+            return View(houseModel); 
         }
         
         [HttpGet]
@@ -95,13 +121,73 @@ namespace HouseRentingSystem.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(new HouseFormModel());
+            if (!this.houseService.Exists(id))
+            {
+                ViewData[ErrorMessage] = "That house was not found in the system";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (!this.houseService.HasAgentWithId(id, this.User.Id()))
+            {
+                ViewData[ErrorMessage] = "You are not authorize to do that";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            var house = this.houseService.HouseDetailsById(id);
+
+            var houseCategoryId = this.houseService.GetHouseCategoryId(house.Id);
+
+            var houseModel = new HouseFormModel()
+            {
+                Title = house.Title,
+                Address = house.Address,
+                Description = house.Description,
+                ImageUrl = house.ImageUrl,
+                PricePerMonth = house.PricePerMonth,
+                CategoryId = houseCategoryId,
+                Categories = this.houseService.AllCategories(),
+            };
+
+            return View(houseModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, HouseFormModel house)
+        public IActionResult Edit(int id, HouseFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = "1" });
+            if (!this.houseService.Exists(id))
+            {
+                //ViewData[ErrorMessage] = "That house was not found in the system";
+
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return BadRequest();
+            }
+
+            if (!this.houseService.HasAgentWithId(id, this.User!.Id()!))
+            {
+                ViewData[ErrorMessage] = "You are not authorize to do that";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (!this.houseService.CategoryExists(model.CategoryId))
+            {
+                this.ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = this.houseService.AllCategories();
+
+                return View(model);
+            }
+
+            this.houseService.Edit(id, model.Title, model.Address, model.Description,
+                model.ImageUrl, model.PricePerMonth, model.CategoryId);
+
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         [HttpGet]
@@ -119,12 +205,52 @@ namespace HouseRentingSystem.Controllers
         [HttpPost]
         public IActionResult Rent(int id)
         {
+            if (!this.houseService.Exists(id))
+            {
+                ViewData[ErrorMessage] = "That house was not found in the system";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (!this.agentService.ExistById(this.User.Id()!))
+            {
+                ViewData[ErrorMessage] = "You are not authorize to do that";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (this.houseService.IsRented(id))
+            {
+                ViewData[ErrorMessage] = "This house is already rented by someone else";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            this.houseService.Rent(id, this.User.Id()!);
+
             return RedirectToAction(nameof(Mine));
         }
 
         [HttpPost]
         public IActionResult Leave(int id)
         {
+            if (!this.houseService.Exists(id) ||
+                !this.houseService.IsRented(id))
+            {
+                ViewData[ErrorMessage] = "Bad Request";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            if (!this.houseService.IsRentedByUserWithId(id, this.User.Id()!))
+            {
+                ViewData[ErrorMessage] = "You are not authorize to do that";
+
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+
+            this.houseService.Leave(id);
+
             return RedirectToAction(nameof(Mine));
         }
     }
