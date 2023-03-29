@@ -18,6 +18,7 @@ global using HouseRentingSystem.Models;
 global using HouseRentingSystem.Services;
 global using HouseRentingSystem.Interfaces;
 global using HouseRentingSystem.Models.Home;
+global using HouseRentingSystem.Models.Agent;
 global using HouseRentingSystem.Models.House;
 global using HouseRentingSystem.Data.Entities;
 global using HouseRentingSystem.Data.Configuration;
