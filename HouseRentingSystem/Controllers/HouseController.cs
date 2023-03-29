@@ -123,16 +123,20 @@ namespace HouseRentingSystem.Controllers
         {
             if (!this.houseService.Exists(id))
             {
-                ViewData[ErrorMessage] = "That house was not found in the system";
+                //ViewData[ErrorMessage] = "That house was not found in the system";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return BadRequest();
             }
 
             if (!this.houseService.HasAgentWithId(id, this.User.Id()))
             {
-                ViewData[ErrorMessage] = "You are not authorize to do that";
+                //ViewData[ErrorMessage] = "You are not authorize to do that";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return Unauthorized();
             }
 
             var house = this.houseService.HouseDetailsById(id);
@@ -167,9 +171,11 @@ namespace HouseRentingSystem.Controllers
 
             if (!this.houseService.HasAgentWithId(id, this.User!.Id()!))
             {
-                ViewData[ErrorMessage] = "You are not authorize to do that";
+                //ViewData[ErrorMessage] = "You are not authorize to do that";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return Unauthorized();
             }
 
             if (!this.houseService.CategoryExists(model.CategoryId))
@@ -207,23 +213,29 @@ namespace HouseRentingSystem.Controllers
         {
             if (!this.houseService.Exists(id))
             {
-                ViewData[ErrorMessage] = "That house was not found in the system";
+                //ViewData[ErrorMessage] = "That house was not found in the system";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return BadRequest();
             }
 
             if (!this.agentService.ExistById(this.User.Id()!))
             {
-                ViewData[ErrorMessage] = "You are not authorize to do that";
+                //ViewData[ErrorMessage] = "You are not authorize to do that";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return Unauthorized();
             }
 
             if (this.houseService.IsRented(id))
             {
-                ViewData[ErrorMessage] = "This house is already rented by someone else";
+                //ViewData[ErrorMessage] = "This house is already rented by someone else";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return BadRequest();
             }
 
             this.houseService.Rent(id, this.User.Id()!);
@@ -237,16 +249,20 @@ namespace HouseRentingSystem.Controllers
             if (!this.houseService.Exists(id) ||
                 !this.houseService.IsRented(id))
             {
-                ViewData[ErrorMessage] = "Bad Request";
+                //ViewData[ErrorMessage] = "Bad Request";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return BadRequest();
             }
 
             if (!this.houseService.IsRentedByUserWithId(id, this.User.Id()!))
             {
-                ViewData[ErrorMessage] = "You are not authorize to do that";
+                //ViewData[ErrorMessage] = "You are not authorize to do that";
 
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+
+                return Unauthorized();
             }
 
             this.houseService.Leave(id);

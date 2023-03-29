@@ -21,15 +21,16 @@
             if (!string.IsNullOrWhiteSpace(category))
             {
                 housesQuery = this.dbContext.Houses
-                    .Where(h => h.Category.Name == category);
+                    .Where(h => h.Category.Name == category && !h.IsDeleted);
             }
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 housesQuery = housesQuery.Where(h =>
-                    h.Title.ToLower().Contains(searchTerm.ToLower()) ||
-                    h.Address.ToLower().Contains(searchTerm.ToLower()) ||
-                    h.Description.ToLower().Contains(searchTerm.ToLower()));
+                    (h.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                     h.Address.ToLower().Contains(searchTerm.ToLower()) ||
+                     h.Description.ToLower().Contains(searchTerm.ToLower())) && 
+                    !h.IsDeleted);
             }
 
             housesQuery = sorting switch
@@ -87,7 +88,7 @@
         {
             var houses = this.dbContext
                 .Houses
-                .Where(h => h.AgentId == agentId)
+                .Where(h => h.AgentId == agentId && !h.IsDeleted)
                 .ToList();
 
             return this.ProjectToModel(houses);
@@ -97,7 +98,7 @@
         {
             var houses = this.dbContext
                 .Houses
-                .Where(h => h.RenterId == userId)
+                .Where(h => h.RenterId == userId && !h.IsDeleted)
                 .ToList();
 
             return this.ProjectToModel(houses);
@@ -151,7 +152,7 @@
 
         public bool Exists(int id)
         {
-            return this.dbContext.Houses.Any(h => h.Id == id);
+            return this.dbContext.Houses.Any(h => h.Id == id && !h.IsDeleted);
         }
 
         public int GetHouseCategoryId(int houseId)
@@ -181,7 +182,7 @@
         {
             return this.dbContext
                 .Houses
-                .Where(h => h.Id == id)
+                .Where(h => h.Id == id && !h.IsDeleted)
                 .Select(h => new HouseDetailsServiceModel()
                 {
                     Id = id,
@@ -227,6 +228,7 @@
         {
             return this.dbContext
                 .Houses
+                .Where(h => !h.IsDeleted)
                 .OrderByDescending(h => h.Id)
                 .Select(h => new HouseIndexServiceModel()
                 {
