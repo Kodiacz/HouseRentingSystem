@@ -16,11 +16,20 @@
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-            => View(new ErrorViewModel
+        public IActionResult Error(int statusCode)
+        {
+            if (statusCode == 400)
             {
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-            });
+                return View("Error400");
+            }
+
+            if (statusCode == 401)
+            {
+                return View("Error401");
+            }
+
+            return View();
+        }
 
     }
 }
