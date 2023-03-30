@@ -5,7 +5,10 @@ builder.Services.AddDbContext<HouseRentingDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(opt =>
+{
+    opt.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
 builder.Services.AddDefaultIdentity<ApplicationUser>(opt =>
 {
     opt.SignIn.RequireConfirmedAccount = false;
@@ -19,6 +22,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(opt =>
 
 builder.Services.AddTransient<IHouseService, HouseService>();
 builder.Services.AddTransient<IAgentService, AgentService>();
+builder.Services.AddTransient<IStatisticsService, StatisticsService>();
 
 var app = builder.Build();
 
@@ -41,6 +45,18 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "House Details",
+        pattern: "/House/Details/{id}/{information}",
+        defaults: new { Controller = "House", Action = "Details" });
+
+
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
 
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
