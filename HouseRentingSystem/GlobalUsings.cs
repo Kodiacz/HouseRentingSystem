@@ -21,6 +21,7 @@ global using HouseRentingSystem.Models.Home;
 global using HouseRentingSystem.Models.Agent;
 global using HouseRentingSystem.Models.House;
 global using HouseRentingSystem.Data.Entities;
+global using HouseRentingSystem.Models.Statistics;
 global using HouseRentingSystem.Data.Configuration;
 global using HouseRentingSystem.Data.Entities.Configuration;
 global using static HouseRentingSystem.Constants.MessageConstants;
