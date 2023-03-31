@@ -51,12 +51,13 @@ namespace HouseRentingSystem.Controllers
             {
                 myHouses = this.houseService.AllHousesByUserId(userId!);
             }
-
+            
             return View(myHouses);
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        [AllowAnonymous]
+        public IActionResult Details(int id, string information)
         {
             if (!this.houseService.Exists(id))
             {
@@ -68,6 +69,11 @@ namespace HouseRentingSystem.Controllers
             }
 
             var houseModel = this.houseService.HouseDetailsById(id);
+
+            if (information != houseModel.GetInforamtion())
+            {
+                return BadRequest();
+            }
 
             return View(houseModel); 
         }
@@ -115,7 +121,7 @@ namespace HouseRentingSystem.Controllers
 
             var newHouseId = this.houseService.Create(houseModel, agentId);
 
-            return RedirectToAction(nameof(Details), new { id = newHouseId });
+            return RedirectToAction(nameof(Details), new { id = newHouseId, information = houseModel.GetInforamtion() });
         }
 
         [HttpGet]
@@ -193,7 +199,7 @@ namespace HouseRentingSystem.Controllers
             this.houseService.Edit(id, model.Title, model.Address, model.Description,
                 model.ImageUrl, model.PricePerMonth, model.CategoryId);
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction(nameof(Details), new { id = id, inforamtion = model.GetInforamtion() });
         }
 
         [HttpGet]
