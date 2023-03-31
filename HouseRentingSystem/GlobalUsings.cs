@@ -23,10 +23,10 @@ global using HouseRentingSystem.Models.House;
 global using HouseRentingSystem.Data.Entities;
 global using HouseRentingSystem.Models.Statistics;
 global using HouseRentingSystem.Data.Configuration;
+global using static HouseRentingSystem.AdminConstants;
 global using HouseRentingSystem.Data.Entities.Configuration;
 global using static HouseRentingSystem.Constants.MessageConstants;
 global using static HouseRentingSystem.Data.Entities.DataConstants.AgentConstants;
 global using static HouseRentingSystem.Data.Entities.DataConstants.ApplicationUserConstants;
 global using static HouseRentingSystem.Data.Entities.DataConstants.CategoryConstants;
 global using static HouseRentingSystem.Data.Entities.DataConstants.HouseConstants;
-
