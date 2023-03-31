@@ -3,10 +3,12 @@
     public class HouseService : IHouseService
     {
         private readonly HouseRentingDbContext dbContext;
-
-        public HouseService(HouseRentingDbContext context)
+        private readonly IUserService userService;
+        public HouseService(HouseRentingDbContext context,
+            IUserService userService)
         {
             this.dbContext = context;
+            this.userService = userService;
         }
 
         public HouseQueryServiceModel All(
@@ -195,6 +197,7 @@
                     Category = h.Category.Name,
                     Agent = new AgentServiceModel()
                     {
+                        FullName = this.userService.UserFullName(h.Agent.UserId),
                         PhoneNumber = h.Agent.PhoneNumber,
                         Email = h.Agent.User.Email,
                     }
@@ -235,6 +238,7 @@
                     Id = h.Id,
                     Title = h.Title,
                     ImageUrl = h.ImageUrl,
+                    Address = h.Address,
                 })
                 .Take(3)
                 .ToList();
