@@ -12,7 +12,11 @@
 
         public static class ApplicationUserConstants
         {
+            public const int ApplicationUserFirstNameMaxLength = 12;
+            public const int ApplicationUserFirstNameMinLength = 1;
 
+            public const int ApplicationUserLastNameMaxLength = 15;
+            public const int ApplicationUserLastNameMinLength = 3;
         }
 
         public static class CategoryConstants
