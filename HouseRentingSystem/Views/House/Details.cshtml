@@ -1,4 +1,7 @@
-﻿@model HouseDetailsServiceModel
+﻿@inject IAgentService agentService
+@inject IHouseService houseService
+
+@model HouseDetailsServiceModel
 
 @{
     ViewBag.Title = "House Details";
@@ -26,21 +29,24 @@
             <div class="form-inline">
                 @if (this.User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <a class="btn btn-warning" asp-controller="House" asp-action="Edit"
-                       asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="House" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
-                    @if (!Model.IsRented)
+                    @if (this.houseService.HasAgentWithId(Model.Id, this.User.Id()!))
                     {
-                        <form class="ml-2" asp-controller="House"
-                      asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                        <a class="btn btn-warning" asp-controller="House" asp-action="Edit" asp-route-id="@Model.Id">
+                            Edit
+                        </a>
+                        <a class="ml-2 btn btn-danger" asp-controller="House" asp-action="Delete" asp-route-id="@Model.Id">
+                            Delete
+                        </a>
+                    }
+                    @if (!Model.IsRented && this.agentService.ExistById(this.User.Id()!))
+                    {
+                        <form class="ml-2" asp-controller="House" asp-action="Rent" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Rent" />
                         </form>
                     }
-                    else
+                    else if (this.houseService.IsRentedByUserWithId(Model.Id, this.User.Id()!))
                     {
-                        <form class="ml-2" asp-controller="House" asp-action="Leave"
-                      asp-route-id="@Model.Id" method="post">
+                        <form class="ml-2" asp-controller="House" asp-action="Leave" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Leave" />
                         </form>
                     }
@@ -50,6 +56,10 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Agent Info</h5>
+                    @if (Model.Agent.FullName != null)
+                    {
+                        <p class="card-text">Full Name:  @Model.Agent.FullName</p>
+                    }
                     <p class="card-text">Email:  @Model.Agent.Email</p>
                     <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
                 </div>

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HouseIndexServiceModel>
+﻿@inject IAgentService agentService
+
+@model IEnumerable<HouseIndexServiceModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -15,7 +17,7 @@
         </p>
         <hr class="my-4">
         <p class="lead">
-            @if (this.User?.Identity?.IsAuthenticated ?? false)
+            @if (this.User.Identity!.IsAuthenticated && this.agentService.ExistById(this.User.Id()!))
             {
                 <a asp-controller="Houses" asp-action="Add" class="btn btn-primary btn-lg"
                    role="button">Add House</a>
@@ -37,7 +39,8 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
                         <a class="btn btn-primary" asp-controller="House" asp-action="Details"
-                           asp-route-id="@house.Id"> @house.Title</a>
+                           asp-route-id="@house.Id"
+                           asp-route-information="@house.GetInforamtion()"> @house.Title</a>
                     </h5>
                 </div>
             </div>
