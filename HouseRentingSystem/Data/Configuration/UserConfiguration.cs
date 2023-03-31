@@ -22,7 +22,9 @@
                 UserName = "agent@mail.com",
                 NormalizedUserName = "agent@mail.com",
                 Email = "agent@mail.com",
-                NormalizedEmail = "agent@mail.com"
+                NormalizedEmail = "agent@mail.com",
+                FirstName = "Linda",
+                LastName = "Michaels",
             };
 
             user.PasswordHash =
@@ -36,7 +38,9 @@
                 UserName = "guest@mail.com",
                 NormalizedUserName = "guest@mail.com",
                 Email = "guest@mail.com",
-                NormalizedEmail = "guest@mail.com"
+                NormalizedEmail = "guest@mail.com",
+                FirstName = "Teodor",
+                LastName = "Lesly",
             };
 
             user.PasswordHash =
@@ -50,11 +54,29 @@
                 UserName = "agent2@mail.com",
                 NormalizedUserName = "agent2@mail.com",
                 Email = "agent2@mail.com",
-                NormalizedEmail = "agent2@mail.com"
+                NormalizedEmail = "agent2@mail.com",
+                FirstName = "Jackson",
+                LastName = "Dreison",
             };
 
             user.PasswordHash =
                 hasher.HashPassword(user, "agent123");
+
+            users.Add(user);
+
+            user = new ApplicationUser()
+            {
+                Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
+                Email = AdminEmail,
+                NormalizedEmail = AdminEmail,
+                UserName = AdminEmail,
+                NormalizedUserName = AdminEmail,
+                FirstName = "Great",
+                LastName = "Admin",
+            };
+
+            user.PasswordHash =
+                hasher.HashPassword(user, "admin123");
 
             users.Add(user);
 
