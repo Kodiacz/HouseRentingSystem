@@ -1,6 +1,6 @@
 ﻿namespace HouseRentingSystem.Models.House
 {
-    public class HouseFormModel
+    public class HouseFormModel : IHouseModel
     {
         public HouseFormModel()
         {
