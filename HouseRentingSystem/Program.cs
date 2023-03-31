@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using HouseRentingSystem.Data;
+using HouseRentingSystem.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -18,13 +23,22 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(opt =>
     opt.Password.RequireUppercase = false;
     opt.Password.RequireNonAlphanumeric = false;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HouseRentingDbContext>();
+
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.LoginPath = "/Identity/Account/Login";
+});
 
 builder.Services.AddTransient<IHouseService, HouseService>();
 builder.Services.AddTransient<IAgentService, AgentService>();
 builder.Services.AddTransient<IStatisticsService, StatisticsService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
+
+app.SeedAdmin();
 
 if (app.Environment.IsDevelopment())
 {
