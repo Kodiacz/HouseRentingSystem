@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using HouseRentingSystem.Services.Data;
-using HouseRentingSystem.Infrastructure;
+using HouseRentingSystem.Web.Infrastructure;
 using HouseRentingSystem.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +67,10 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+        name: "Areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
     endpoints.MapControllerRoute(
         name: "House Details",
         pattern: "/House/Details/{id}/{information}",
