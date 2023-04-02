@@ -1,4 +1,4 @@
-﻿using HouseRentingSystem.Infrastructure;
+﻿using HouseRentingSystem.Web.Infrastructure;
 
 namespace HouseRentingSystem.Controllers
 {

@@ -11,6 +11,11 @@
 
         public IActionResult Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
             var houses = this.houseService.LastThreeHouses();
             return View(houses);
         }

@@ -1,5 +1,5 @@
 ﻿using HouseRentingSystem.Constants;
-using HouseRentingSystem.Infrastructure;
+using HouseRentingSystem.Web.Infrastructure;
 using HouseRentingSystem.Services.Models.Agent;
 
 namespace HouseRentingSystem.Controllers
