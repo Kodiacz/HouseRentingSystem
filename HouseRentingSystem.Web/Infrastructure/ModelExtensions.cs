@@ -1,4 +1,4 @@
-﻿namespace HouseRentingSystem.Infrastructure
+﻿namespace HouseRentingSystem.Web.Infrastructure
 {
     using System.Text.RegularExpressions;
 

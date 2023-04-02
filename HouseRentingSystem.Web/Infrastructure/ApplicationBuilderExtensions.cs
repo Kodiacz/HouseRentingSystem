@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-
-namespace HouseRentingSystem.Infrastructure
+﻿namespace HouseRentingSystem.Web.Infrastructure
 {
     public static class ApplicationBuilderExtensions
     {
