@@ -14,9 +14,11 @@ global using Microsoft.EntityFrameworkCore.Infrastructure;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 global using HouseRentingSystem.Services;
+global using HouseRentingSystem.Controllers;
 global using HouseRentingSystem.Services.Data;
 global using HouseRentingSystem.Services.Enums;
 global using HouseRentingSystem.Services.Models;
+global using HouseRentingSystem.Services.Services;
 global using HouseRentingSystem.Web.Infrastructure;
 global using HouseRentingSystem.Services.Interfaces;
 global using HouseRenting.System.Data.Configuration;
