@@ -32,6 +32,7 @@
         public Agent Agent { get; set; } = null!;
 
         public string? RenterId { get; set; }
+        public ApplicationUser? Renter { get; set; } 
 
         public bool IsDeleted { get; set; } = false;
     }
