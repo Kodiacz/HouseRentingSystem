@@ -1,9 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using HouseRentingSystem.Services.Data;
-using HouseRentingSystem.Web.Infrastructure;
-using HouseRentingSystem.Controllers;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -36,10 +30,11 @@ builder.Services.AddAutoMapper(
     typeof(IHouseService).Assembly,
     typeof(HomeController).Assembly);
 
+builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IHouseService, HouseService>();
 builder.Services.AddTransient<IAgentService, AgentService>();
 builder.Services.AddTransient<IStatisticsService, StatisticsService>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IRentService, RentService>();
 
 var app = builder.Build();
 
