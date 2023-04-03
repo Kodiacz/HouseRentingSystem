@@ -1,4 +1,5 @@
 ﻿using HouseRentingSystem.Web.Infrastructure;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace HouseRentingSystem.Controllers
 {
@@ -8,15 +9,18 @@ namespace HouseRentingSystem.Controllers
         private readonly IHouseService houseService;
         private readonly IAgentService agentService;
         private readonly IMapper mapper;
+        private readonly IMemoryCache memoryCache;
 
         public HouseController(
             IHouseService houseService, 
             IAgentService agentService, 
-            IMapper mapper)
+            IMapper mapper,
+            IMemoryCache memoryCache)
         {
             this.houseService = houseService;
             this.agentService = agentService;
             this.mapper = mapper;
+            this.memoryCache = memoryCache;
         }
 
         [HttpGet]
@@ -257,6 +261,8 @@ namespace HouseRentingSystem.Controllers
                 return RedirectToAction("Mine", "House", new { area = "Admin" });
             }
 
+            this.memoryCache.Remove(RentsCacheKey);
+
             return RedirectToAction(nameof(Mine));
         }
 
@@ -288,6 +294,8 @@ namespace HouseRentingSystem.Controllers
             {
                 return RedirectToAction("Mine", "House", new { area = "Admin" });
             }
+
+            this.memoryCache.Remove(RentsCacheKey);
 
             return RedirectToAction(nameof(Mine));
         }
