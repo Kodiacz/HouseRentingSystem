@@ -17,7 +17,7 @@
 <div class="row">
     @foreach (var house in Model.AddedHouses)
     {
-        @await Html.PartialAsync("~/Views/Houses/_HousePartial.cshtml", house)
+        @await Html.PartialAsync("~/Views/House/_HousePartial.cshtml", house)
     }
 </div>
 
@@ -31,6 +31,6 @@
 <div class="row">
     @foreach (var house in Model.RentedHouses)
     {
-        @await Html.PartialAsync("~/Views/Houses/_HousePartial.cshtml", house)
+        @await Html.PartialAsync("~/Views/House/_HousePartial.cshtml", house)
     }
 </div>
