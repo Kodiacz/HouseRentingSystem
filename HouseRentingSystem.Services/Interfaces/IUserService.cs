@@ -3,5 +3,7 @@
     public interface IUserService
     {
         string UserFullName(string userId);
+
+        IEnumerable<UserServiceModel> All();
     }
 }
