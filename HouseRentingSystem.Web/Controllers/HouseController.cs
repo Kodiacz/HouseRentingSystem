@@ -57,6 +57,11 @@ namespace HouseRentingSystem.Controllers
                 myHouses = this.houseService.AllHousesByUserId(userId!);
             }
             
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Mine", "House", new { area = "Admin" });
+            }
+
             return View(myHouses);
         }
 
@@ -247,6 +252,11 @@ namespace HouseRentingSystem.Controllers
 
             this.houseService.Rent(id, this.User.Id()!);
 
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Mine", "House", new { area = "Admin" });
+            }
+
             return RedirectToAction(nameof(Mine));
         }
 
@@ -273,6 +283,11 @@ namespace HouseRentingSystem.Controllers
             }
 
             this.houseService.Leave(id);
+
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Mine", "House", new { area = "Admin" });
+            }
 
             return RedirectToAction(nameof(Mine));
         }
