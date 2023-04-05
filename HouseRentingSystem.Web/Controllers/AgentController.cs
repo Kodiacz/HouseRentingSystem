@@ -56,7 +56,7 @@ namespace HouseRentingSystem.Controllers
                 return View(model);
             }
 
-            this.agentService.Create(userId, model.PhoneNumber);
+            this.agentService.Create(userId!, model.PhoneNumber);
 
             TempData["message"] = "You have successfully become an agent!";
 

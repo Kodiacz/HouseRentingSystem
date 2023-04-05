@@ -135,6 +135,8 @@ namespace HouseRentingSystem.Controllers
 
             var newHouseId = this.houseService.Create(houseModel, agentId);
 
+            TempData["message"] = "You have successfully added a house";
+
             return RedirectToAction(nameof(Details), new { id = newHouseId, information = houseModel.GetInforamtion() });
         }
 
@@ -263,6 +265,8 @@ namespace HouseRentingSystem.Controllers
 
             this.memoryCache.Remove(RentsCacheKey);
 
+            TempData["message"] = "You have successfully rented a house!";
+
             return RedirectToAction(nameof(Mine));
         }
 
@@ -296,6 +300,8 @@ namespace HouseRentingSystem.Controllers
             }
 
             this.memoryCache.Remove(RentsCacheKey);
+
+            TempData["message"] = "You have successfully left a house!";
 
             return RedirectToAction(nameof(Mine));
         }
